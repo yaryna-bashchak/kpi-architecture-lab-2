@@ -22,6 +22,6 @@ func main() {
 	//       }
 	//       err := handler.Compute()
 
-	res, _ := lab2.PostfixToInfix("1 2 + 3 4 * 5 ^ + 6 /")
+	res, _ := lab2.PostfixToInfix("1 2 + 3 4 * 5 ^ + 6 7 + /")
 	fmt.Println(res)
 }
