@@ -41,15 +41,22 @@ func (s *PostfixToInfixSuite) TestPostfixToInfix(c *C) {
 	res, err = PostfixToInfix("2 3 / 4 5 & -")
 	c.Assert(err, NotNil);
 
-	//більш складний вираз
+	//Вираз з 6-ма оператором
 	res, err = PostfixToInfix("1 2 + 3 4 - 5 * ^ 6 7 / /")
 	c.Assert(err, IsNil)
 	c.Assert(res, Equals, "((1 + 2) ^ ((3 - 4) * 5)) / (6 / 7)")
-	
+
+	//Вираз з 8-ма оператором
+	res, err = PostfixToInfix("5 2 - 9 3 / * 1 3 + 9 - 3 1 / ^ -")
+	c.Assert(err, IsNil)
+	c.Assert(res, Equals, "(5 - 2) * (9 / 3) - (1 + 3 - 9) ^ (3 / 1)")
+
+	//Вираз з 10-ма оператором
+	res, err = PostfixToInfix("2 3 * 2 3 + ^ 1 2 + 3 4 - 5 * ^ 6 7 / / -")
+	c.Assert(err, IsNil)
+	c.Assert(res, Equals, "(2 * 3) ^ (2 + 3) - ((1 + 2) ^ ((3 - 4) * 5)) / (6 / 7)")
 }
 func Test(t *testing.T) { TestingT(t) }
-
-
 
 func ExamplePostfixToInfix() {
 	res, _ := PostfixToInfix("8 3 + 9 -")
