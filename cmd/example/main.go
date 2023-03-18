@@ -3,25 +3,60 @@ package main
 import (
 	"flag"
 	"fmt"
-	lab2 "github.com/roman-mazur/architecture-lab-2"
+	"io"
+	"os"
+	"strings"
+	lab2 "github.com/yaryna-bashchak/kpi-architecture-lab-2"
 )
 
 var (
 	inputExpression = flag.String("e", "", "Expression to compute")
-	// TODO: Add other flags support for input and output configuration.
+	inputFromFile = flag.String("f", "", "Source file")
+	outputToFile = flag.String("o", "", "Output to the file")
 )
 
 func main() {
 	flag.Parse()
 
-	// TODO: Change this to accept input from the command line arguments as described in the task and
-	//       output the results using the ComputeHandler instance.
-	//       handler := &lab2.ComputeHandler{
-	//           Input: {construct io.Reader according the command line parameters},
-	//           Output: {construct io.Writer according the command line parameters},
-	//       }
-	//       err := handler.Compute()
+	var input io.Reader
+	var output = os.Stdout
 
-	res, _ := lab2.PostfixToInfix("1 2 + 3 4 * 5 ^ + 6 7 + /")
-	fmt.Println(res)
+	switch {
+    case *inputExpression != "":
+        input = strings.NewReader(*inputExpression)
+
+    case *inputFromFile != "":
+        f, err := os.Open(*inputFromFile)
+        if err != nil {
+            fmt.Fprintln(os.Stderr, "Error:", err)
+            return
+        }
+        defer f.Close()
+        input = f
+
+    default:
+        fmt.Fprintln(os.Stderr, "Input expression is empty")
+        return
+    }
+
+    if *outputToFile != "" {
+        f, err := os.Create(*outputToFile)
+
+        if err != nil {
+            fmt.Fprintln(os.Stderr, "Error:", err)
+            return
+        }
+
+        defer f.Close()
+        output = f
+    }
+
+    handler := &lab2.ComputeHandler{
+        Input:  input,
+        Output: output,
+    }
+
+    if err := handler.Compute(); err != nil {
+        fmt.Fprintln(os.Stderr, "Error:", err)
+    }
 }
