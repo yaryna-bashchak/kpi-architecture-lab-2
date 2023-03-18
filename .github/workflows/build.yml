@@ -2,9 +2,9 @@ name: Go
 
 on:
   push:
-    branches: [ master ]
+    branches: [ "master" ]
   pull_request:
-    branches: [ master ]
+    branches: [ "master" ]
 
 jobs:
 
@@ -19,7 +19,7 @@ jobs:
         go-version: 1.19
 
     - name: Build
-      run: make build -v ./...
+      run: make out/example
 
     - name: Test
-      run: make test -v ./...
+      run: make test
