@@ -20,6 +20,11 @@ func isNumber(token string) bool {
 }
 
 func PostfixToInfix(postfix string) (string, error) {
+	postfix = strings.TrimSpace(postfix)
+	if postfix == "" {
+		return "", fmt.Errorf("Input expression is empty")
+	}
+	
 	tokens := strings.Split(postfix, " ")
 	array := []string{}
 	for _, token := range tokens {
