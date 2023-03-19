@@ -1,4 +1,10 @@
-Шаблон для 2-гої роботи з архітектури ПЗ
----
+## Лабораторна робота №2 з архітектури ПЗ
 
-Використайте кнопку **"Use this template"**, щоб створити власний репозиторій.
+### GitHub Actions
+
+[Actions log](https://github.com/yaryna-bashchak/kpi-architecture-lab-2/actions)
+
+Examples:
+
+- Test is passed: [link to action](https://github.com/yaryna-bashchak/kpi-architecture-lab-2/actions/runs/4456978897)
+- Test is not passed: [link to action](https://github.com/yaryna-bashchak/kpi-architecture-lab-2/actions/runs/4456976745)
